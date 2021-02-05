@@ -1,0 +1,116 @@
+.ad-units__wrapper {
+
+}
+
+.ad-units__item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 3px 3px 10px grey;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .ad_units__button {
+    margin-top: 15px;
+  }
+  
+  .ad-units__close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  
+  .ad-units-options {
+    display: flex;
+    margin-top: 47px;
+    margin-bottom: 15px;
+    align-items: center;
+  }
+  
+  .ad-units-options__container-id-label {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+  
+  .ad-units-options__container-id-input {
+    margin-right: 10px;
+  }
+  
+  .ad-units-options__code-type-label {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+  
+  .ad-units-options__code-type-select {
+  
+  }
+  
+  .ad-units-bidder {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 3px 3px 10px grey;
+    padding: 12px;
+    margin-top: 15px;
+  }
+  
+  .ad-units-bidder__options {
+    display: flex;
+    align-items: center;
+  }
+  
+  .ad-units-bidder__bidder-label {
+    margin-right: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  .ad-units-bidder__bidder-select {
+    margin-right: 10px;
+    width: 160px;
+  }
+  
+  .ad-units-bidder__placement-id-label {
+    margin-right: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  .ad-units-bidder__placement-id-input {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .ad-units-bidder__adfox-params-input {
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ad-units-bidder__adfox-params-label {
+    margin-top: 0;
+    margin-bottom: 5px;
+  }
+  
+  .ad-units-bidder__remove-button {
+    margin-left: auto;
+    margin-right: 0;
+  }
+  
+  .ad-units-bidder__ad-breaks {
+    display: flex;
+    align-items: baseline;
+    padding-top: 13px;
+    padding-bottom: 13px;
+  }
+  
+  .ad-units-bidder__ad-break-input {
+    margin-right: 15px;
+  }
+  
+  .ad-units-bidder__ad-break-input:last-of-type {
+    margin-right: 0;
+  }

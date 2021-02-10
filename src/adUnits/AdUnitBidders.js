@@ -22,27 +22,49 @@ class AdUnitBidders extends React.Component {
 
   // Функция для генерации списка биддеров при добавлении биддера в adUnit
   getSelectOptions = () => {
+    // debugger;
     let currentCodeType = this.props.codeType;
+    let adUnitsUsed = this.props.adUnitsUsed;
     let adUnitIndex = this.props.adUnitIndex;
     let bidderIndex = this.props.bidderIndex;
+    let biddersMap = this.props.biddersMap;
+    let biddersList = this.props.biddersList;
     // Биддеры, которые добавлены в biddersMap
-    let availableBidders = this.props.biddersMap.map((elem => {
-      return elem.checked;
-    }));
+    // let availableBidders = this.props.biddersMap.map((elem => {
+    //   return elem.checked;
+    // }));
     // Биддеры, которые заиспользованы в текущем adUnit
-    let biddersUsedInCurrentAdUnit = this.props.adUnitsUsed[adUnitIndex].bidders.map((elem, idx) => {
+    let biddersUsedInCurrentAdUnit = adUnitsUsed[adUnitIndex].bidders.map((elem, idx) => {
       if (idx !== bidderIndex) {
         return elem.checked;
       }
-    });
-    let list = this.props.biddersList.map((elem) => {
-      if (availableBidders.includes(elem.value) === true &&
-          biddersUsedInCurrentAdUnit.includes(elem.value) === false &&
-          elem.codeTypes.includes(currentCodeType)
-        ) {
-        return {value: elem.value, content: elem.name}
-      }
+    }).filter(e => e !== undefined);
+    // biddersList -- изначальный список из list
+    // biddersMap -- то что добавлено в bidders map
+    let list = biddersMap.map((bidder) => {
+      if (
+        biddersList[bidder.checked].codeTypes.includes(currentCodeType) === true 
+        && biddersUsedInCurrentAdUnit.includes(bidder.checked) === false
+      ) {
+        if (bidder.checked === 'adfox') {
+          return {value: `adfox_${bidder.biddersName}`, content: bidder.biddersName}
+        } else {
+          return {value: bidder.checked, content: biddersList[bidder.checked].value}
+        }
+      } 
+      // else {
+      //  return {value: 'default',content: '---'};
+      // }
     }).filter(item => item !== undefined);
+    console.log(list);
+    // let list = this.props.biddersList.map((elem) => {
+    //   if (availableBidders.includes(elem.value) === true &&
+    //       biddersUsedInCurrentAdUnit.includes(elem.value) === false &&
+    //       elem.codeTypes.includes(currentCodeType)
+    //     ) {
+    //     return {value: elem.value, content: elem.name}
+    //   }
+    // }).filter(item => item !== undefined);
     return list
   }
 
@@ -66,7 +88,7 @@ class AdUnitBidders extends React.Component {
               options={this.getSelectOptions()}
             />
           </div>
-          {adUnitsUsed[adUnitIndex].bidders[bidderIndex].checked === "adfox" ? (
+          {adUnitsUsed[adUnitIndex].bidders[bidderIndex].checked.includes("adfox") ? (
             <AdUnitBiddersAdfoxParamsInput 
               adfoxParamsInput={this.props.adfoxParamsInput}
               adUnitsUsed={this.props.adUnitsUsed}

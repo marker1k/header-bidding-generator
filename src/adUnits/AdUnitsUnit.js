@@ -15,6 +15,8 @@ class AdUnitsUnit extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.adUnitsUsed[this.props.index].bidders !== prevProps.adUnitsUsed[this.props.index].bidders) {
       this.props.clearSizesWhenNoBiddersAdded(this.props.index);
+      // Дизейблим кнопку добавить биддера, когда больше нет доступных биддеров для добавления
+      this.props.disableAddBidderButton(this.props.index);
     }
   }
   render() {
@@ -90,6 +92,7 @@ class AdUnitsUnit extends React.Component {
         <div className="ad_units__button">
           <Button view="action" size="m"
             onClick={(e) => {this.props.addBiddertoUnit(e, index)}}
+            disabled={adUnitsUsed[index].addButtonDisabled}
             >
             Добавить биддера
           </Button>

@@ -32,6 +32,7 @@ class AdUnits extends React.Component {
                   removeAdUnit={this.props.removeAdUnit}
                   requireSizes={this.props.requireSizes}
                   clearSizesWhenNoBiddersAdded={this.props.clearSizesWhenNoBiddersAdded}
+                  disableAddBidderButton={this.props.disableAddBidderButton}
                   sizesInput={this.props.sizesInput}
                   adBreakTypeHandler={this.props.adBreakTypeHandler}
                   />

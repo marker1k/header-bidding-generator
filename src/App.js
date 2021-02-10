@@ -35,6 +35,8 @@ class App extends React.Component {
     this.removeAdUnit = this.removeAdUnit.bind(this);
     this.requireSizes = this.requireSizes.bind(this);
     this.clearSizesWhenNoBiddersAdded = this.clearSizesWhenNoBiddersAdded.bind(this);
+    this.disableAddBidderButton = this.disableAddBidderButton.bind(this);
+    this.enableAddBidderButtons = this.enableAddBidderButtons.bind(this);
     this.sizesInput = this.sizesInput.bind(this);
     this.adBreakTypeHandler = this.adBreakTypeHandler.bind(this);
     this.state = {
@@ -42,8 +44,14 @@ class App extends React.Component {
       adUnitsButtonDisabled: false,
       biddersMap: [{"list":[{"value":"default","content":"---"},{"value":"criteo","content":"Criteo"},{"value":"adriver","content":"Soloway"},{"value":"hpmd","content":"HPMD"},{"value":"buzzoola","content":"Buzzoola"},{"value":"myTarget","content":"Mytarget"},{"value":"facebook","content":"Facebook"},{"value":"betweenDigital","content":"Between Digital"},{"value":"aio","content":"All in One Media"},{"value":"getintent","content":"GetIntent"},{"value":"tinkoff","content":"Tinkoff"},{"value":"videonow","content":"Videonow"},{"value":"rtbhouse","content":"RTB House"},{"value":"relap","content":"Relap"},{"value":"pladform","content":"Pladform"},{"value":"alfasense","content":"Alfasense"},{"value":"fotostrana","content":"Fotostrana"},{"value":"hybrid","content":"Hybrid"},{"value":"mgid","content":"Mgid"},{"value":"dgt_ssp","content":"DGT SSP"},{"value":"adspend","content":"ADSPEND"},{"value":"mediatoday","content":"MediaToday"},{"value":"redllama","content":"Redllama"},{"value":"qvant_dsp","content":"Qvant DSP"},{"value":"adfox","content":"ADFOX HB"}],
       "checked":"criteo","value":"1234","state":"","hint":""}],
-      adUnits: [{"containerId":"13123123123","codeType":"banner", "state": "", "hint": "","bidders":[{"checked":"criteo","placementId":"99999"}]}]
+      adUnits: [{"addButtonDisabled": false, "containerId":"13123123123","codeType":"banner", "state": "", "hint": "","bidders":[{"checked":"criteo","placementId":"99999"}]}]
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.biddersMap !== prevState.biddersMap) {
+      this.enableAddBidderButtons();
+    }
   }
 
   bidderSelect = (event, index) => {
@@ -103,11 +111,9 @@ class App extends React.Component {
       }
     });
     // Отрисовываем биддеров в выпадающее меню
-    let biddersList = list
-    .map((elem, id) => {
-    // Только тех, которые не используются
-      if (!used.includes(elem.value)) {
-        return { value: elem.value, content: elem.name }
+    let biddersList = Object.keys(list).map((bidder) => {
+      if (!used.includes(bidder)) {
+        return {content: list[bidder].value, value: bidder};
       }
     })
     // Что-то отфильровываем (?)
@@ -147,12 +153,12 @@ class App extends React.Component {
 
   addUnit = (containerId) => {
     this.setState((prevState) => ({
-      adUnits: [...prevState.adUnits, { containerId: "", codeType: "banner", state: "", hint: "", bidders: [] }]
+      adUnits: [...prevState.adUnits, { containerId: "", addButtonDisabled: false, codeType: "banner", state: "", hint: "", bidders: [] }]
     }));
   }
 
   codeTypeSelect = (event, idx) => {
-    const index = idx;
+    // const index = idx;
     this.setState(prevState => {
       const adUnits = prevState.adUnits.map((item, index) => {
         if (idx === index) {
@@ -165,12 +171,25 @@ class App extends React.Component {
     });
   }
 
+  // let biddersList = Object.keys(list).map((bidder) => {
+  //   if (!used.includes(list[bidder].value)) {
+  //     return {content: list[bidder].value, value: bidder};
+  //   }
+  // })
+
+  // -------  old version  --------
+  // let requireSizesList = list.map((elem) => {
+  //   if (elem.requireSizes) {
+  //     return elem.value;
+  //   }
+  // }).filter(item => item !== undefined);
+
   requireSizes = (adUnitIndex) => {
-    let requireSizesList = list.map((elem) => {
-      if (elem.requireSizes) {
-        return elem.value;
+    let requireSizesList = Object.keys(list).map((bidder) => {
+      if (list[bidder].requireSizes) {
+        return bidder;
       }
-    }).filter(item => item !== undefined);
+    }).filter(e => e !== undefined);;
 
     let currentAdUnitBidders = this.state.adUnits[adUnitIndex].bidders.map((elem) => {
       return elem.checked;
@@ -224,6 +243,43 @@ class App extends React.Component {
     }
   }
 
+  disableAddBidderButton = (adUnitIndex) => {
+    const biddersMapLength = this.state.biddersMap.length;
+    const currentAdUnitBiddersLength = this.state.adUnits[adUnitIndex].bidders.length;
+    if (currentAdUnitBiddersLength >= biddersMapLength) {
+      this.setState(prevState => {
+        const adUnits = prevState.adUnits.map((item, index) => {
+          if (adUnitIndex === index) {
+            return Object.assign({}, item, {addButtonDisabled: true});
+          } else {
+            return item;
+          }
+        })
+        return {adUnits};
+      });
+    } else {
+      this.setState(prevState => {
+        const adUnits = prevState.adUnits.map((item, index) => {
+          if (adUnitIndex === index) {
+            return Object.assign({}, item, {addButtonDisabled: false});
+          } else {
+            return item;
+          }
+        })
+        return {adUnits};
+      });
+    }
+  }
+
+  enableAddBidderButtons = () => {
+    this.setState(prevState => {
+      const adUnits = prevState.adUnits.map((item) => {
+        return Object.assign({}, item, {addButtonDisabled: false});
+      })
+      return {adUnits};
+    });
+  }
+
   containerIdInput = (event, idx) => {
     event.persist();
     this.setState(prevState => {
@@ -265,7 +321,7 @@ class App extends React.Component {
   }
 
   addBiddertoUnit = (event, idx) => {
-    const index = idx;
+    // const index = idx;
     this.setState(prevState => {
       const adUnits = prevState.adUnits.map((item, index) => {
         if (idx === index) {
@@ -326,11 +382,17 @@ class App extends React.Component {
       return {adUnits};
     });
 
-    let requireSizesList = list.map((elem) => {
-      if (elem.requireSizes) {
-        return elem.value;
-      }
-    }).filter(item => item !== undefined);
+    // let requireSizesList = list.map((elem) => {
+    //   if (elem.requireSizes) {
+    //     return elem.value;
+    //   }
+    // }).filter(item => item !== undefined);
+
+    // let requireSizesList = Object.keys(list).map((bidder) => {
+    //   if (list[bidder].requireSizes) {
+    //     return bidder;
+    //   }
+    // });
   }
 
   placementIdInput = (event, adUnitIndex, bidderIndex) => {
@@ -429,6 +491,7 @@ class App extends React.Component {
         <div className="bidders-map">
           <h2 className="bidders-map__heading">Bidders Map</h2>
             <BiddersMap
+              adUnitsUsed={this.state.adUnits}
               availableBidders={list}
               biddersUsed={this.state.biddersMap}
               addBidder={this.addBidder}
@@ -458,6 +521,7 @@ class App extends React.Component {
             removeBidderFromAdUnit={this.removeBidderFromAdUnit}
             requireSizes={this.requireSizes}
             clearSizesWhenNoBiddersAdded={this.clearSizesWhenNoBiddersAdded}
+            disableAddBidderButton={this.disableAddBidderButton}
             sizesInput={this.sizesInput}
             adBreakTypeHandler={this.adBreakTypeHandler}
             adfoxParamsInput={this.adfoxParamsInput}

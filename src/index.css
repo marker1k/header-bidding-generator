@@ -16,6 +16,10 @@ code {
     monospace;
 }
 
+.root__heading {
+  text-align: center;
+}
+
 .main-wrapper {
   padding: 30px;
   display: grid;

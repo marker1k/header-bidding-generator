@@ -56,7 +56,6 @@ class AdUnitBidders extends React.Component {
       //  return {value: 'default',content: '---'};
       // }
     }).filter(item => item !== undefined);
-    console.log(list);
     // let list = this.props.biddersList.map((elem) => {
     //   if (availableBidders.includes(elem.value) === true &&
     //       biddersUsedInCurrentAdUnit.includes(elem.value) === false &&

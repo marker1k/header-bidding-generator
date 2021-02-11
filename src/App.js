@@ -2,6 +2,8 @@ import React from 'react';
 import {list} from './bidderList/bidderList.js';
 import BiddersMap from './biddersMap/BiddersMap';
 import AdUnits from './adUnits/AdUnits';
+import TrustedOwners from './trustedOwners/TrustedOwners';
+import UserTimeout from './userTimeout/UserTimeout'
 import './App.css';
 import './blocks/bidders-map.css';
 import './blocks/ad-units.css';
@@ -39,12 +41,22 @@ class App extends React.Component {
     this.enableAddBidderButtons = this.enableAddBidderButtons.bind(this);
     this.sizesInput = this.sizesInput.bind(this);
     this.adBreakTypeHandler = this.adBreakTypeHandler.bind(this);
+    this.trustedOwnersInput = this.trustedOwnersInput.bind(this);
+    this.userTimeoutInput = this.userTimeoutInput.bind(this);
     this.state = {
       biddersMapButtonDisabled: false,
       adUnitsButtonDisabled: false,
       biddersMap: [{"list":[{"value":"default","content":"---"},{"value":"criteo","content":"Criteo"},{"value":"adriver","content":"Soloway"},{"value":"hpmd","content":"HPMD"},{"value":"buzzoola","content":"Buzzoola"},{"value":"myTarget","content":"Mytarget"},{"value":"facebook","content":"Facebook"},{"value":"betweenDigital","content":"Between Digital"},{"value":"aio","content":"All in One Media"},{"value":"getintent","content":"GetIntent"},{"value":"tinkoff","content":"Tinkoff"},{"value":"videonow","content":"Videonow"},{"value":"rtbhouse","content":"RTB House"},{"value":"relap","content":"Relap"},{"value":"pladform","content":"Pladform"},{"value":"alfasense","content":"Alfasense"},{"value":"fotostrana","content":"Fotostrana"},{"value":"hybrid","content":"Hybrid"},{"value":"mgid","content":"Mgid"},{"value":"dgt_ssp","content":"DGT SSP"},{"value":"adspend","content":"ADSPEND"},{"value":"mediatoday","content":"MediaToday"},{"value":"redllama","content":"Redllama"},{"value":"qvant_dsp","content":"Qvant DSP"},{"value":"adfox","content":"ADFOX HB"}],
       "checked":"criteo","value":"1234","state":"","hint":""}],
-      adUnits: [{"addButtonDisabled": false, "containerId":"13123123123","codeType":"banner", "state": "", "hint": "","bidders":[{"checked":"criteo","placementId":"99999"}]}]
+      adUnits: [{"addButtonDisabled": false, "containerId":"13123123123","codeType":"banner", "state": "", "hint": "","bidders":[{"checked":"criteo","placementId":"99999"}]}],
+      trustedOwners: {
+        value: "",
+        state: "",
+        hint: ""
+      },
+      userTimeout: {
+        value: "1000"
+      }
     };
   }
 
@@ -485,6 +497,29 @@ class App extends React.Component {
     });
   }
 
+  trustedOwnersInput = (e) => {
+    const trustedOwners = {...this.state.trustedOwners};
+    const input = e.target.value;
+    if (!/(^\d+$)|(^\d+(?:,\d+)+$)/.test(input) && input !=="") {
+      trustedOwners.state = "error";
+      trustedOwners.hint = "Введите id кампании(й) через запятую";
+      this.setState({trustedOwners});
+    } else {
+      trustedOwners.state = "";
+      trustedOwners.hint = "";
+      this.setState({trustedOwners});
+    }
+    trustedOwners.value = input;
+    this.setState({trustedOwners});
+  }
+
+  userTimeoutInput = (e) => {
+    const userTimeout = {...this.state.userTimeout};
+    const input = e.target.value;
+    userTimeout.value = input;
+    this.setState({userTimeout});
+  }
+
   render() {
     return (
       <div className="main-wrapper">
@@ -526,6 +561,17 @@ class App extends React.Component {
             adBreakTypeHandler={this.adBreakTypeHandler}
             adfoxParamsInput={this.adfoxParamsInput}
           />
+
+          <TrustedOwners 
+            trustedOwners={this.state.trustedOwners}
+            trustedOwnersInput={this.trustedOwnersInput}
+          />
+
+          <UserTimeout 
+            userTimeout={this.state.userTimeout}
+            userTimeoutInput={this.userTimeoutInput}
+          />
+
           <button onClick={()=>{console.log(this.state)}}>Show state</button>
         </div>
 

@@ -14,7 +14,9 @@ class AdUnitBiddersAdfoxParamsInput extends React.Component {
               width="max"
               size="m"
               view="default"
-              value={adUnitsUsed[adUnitIndex].placementId}
+              state={adUnitsUsed[adUnitIndex].bidders[bidderIndex].paramsState}
+              hint={adUnitsUsed[adUnitIndex].bidders[bidderIndex].paramsHint}
+              value={adUnitsUsed[adUnitIndex].bidders[bidderIndex].adfoxCodeRaw}
               onChange={(e) => {this.props.adfoxParamsInput(e, adUnitIndex, bidderIndex)}}
             />
           </div>

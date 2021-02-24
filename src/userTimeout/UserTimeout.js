@@ -5,7 +5,12 @@ class UserTimeout extends React.Component {
   render() {
     return (
       <div className="user-timeout">
-        <h2 className="user-timeout__title">User Timeout</h2>
+        <div className="bidders-map__heading-wrapper">
+          <h2 className="trusted-owners__title">User Timeout</h2>
+          <div className="help-icon">&#63;
+              <div className="help-popup">Время ожидания ответа от сервера биддера, рекомендуемое время 500 мс (максимальное 3000 мс).</div>
+            </div>
+        </div>
         <div className="user-timeout__input">
           <Textinput
               baseline="true"

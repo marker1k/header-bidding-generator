@@ -5,7 +5,12 @@ class TrustedOwners extends React.Component {
   render() {
     return (
       <div className="trusted-owners">
-        <h2 className="trusted-owners__title">Trusted Owners</h2>
+        <div className="bidders-map__heading-wrapper">
+          <h2 className="trusted-owners__title">Trusted Owners</h2>
+          <div className="help-icon">&#63;
+              <div className="help-popup">Необязательный параметр. Если вы планируете передавать ставки в запросы других аккаунтов ADFOX через шаблон Проброс кода ADFOX [loader], укажите через запятую идентификаторы аккаунтов, коды из которых будут пробрасываться.</div>
+            </div>
+        </div>
         <div className="trusted-owners__input">
           <Textinput
               baseline="true"

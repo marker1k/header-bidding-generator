@@ -2,6 +2,16 @@
 
 }
 
+.ad-units__heading {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+.ad-units__add-button {
+  margin-top: 15px;
+}
+
 .ad-units__item {
     display: flex;
     flex-direction: column;
@@ -46,6 +56,10 @@
   
   .ad-units-options__code-type-select {
     margin-right: 10px;
+  }
+
+  .ad-units-options__sizes {
+    max-width: 110px;
   }
   
   .ad-units-bidder {

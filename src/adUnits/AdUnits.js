@@ -40,7 +40,11 @@ class AdUnits extends React.Component {
               }
             )
           }
-        <Button view="action" size="m" disabled={this.props.buttonDisabled}
+        <Button 
+          view="action" 
+          size="m"
+          className="ad-units__add-button" 
+          disabled={this.props.buttonDisabled}
           onClick={this.props.addUnit}
           >
           Добавить контейнер

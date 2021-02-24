@@ -32,12 +32,13 @@ class AdUnitsUnit extends React.Component {
           </Button>
         </div>
       <div className="ad-units-options">
-        <p className="ad-units-options__container-id-label">ID контейнера:</p>
+        {/* <p className="ad-units-options__container-id-label">ID контейнера:</p> */}
         <div className="ad-units-options__container-id-input">
           <Textinput
             baseline="true"
             size="m"
             view="default"
+            placeholder="ID контейнера"
             value={adUnitsUsed[index].containerId}
             state={adUnitsUsed[index].state}
             hint={adUnitsUsed[index].hint}
@@ -56,13 +57,19 @@ class AdUnitsUnit extends React.Component {
             options={this.props.codeTypes}
           />
         </div>
-        {(adUnitsUsed[index].sizes !== undefined && adUnitsUsed[index].codeType !== 'instream') && <Textinput
-            size="m"
-            view="default"
-            placeholder="Sizes"
-            value={adUnitsUsed[index].sizes}
-            onChange={(e) => {this.props.sizesInput(e, index)}}
-          />}
+        {(adUnitsUsed[index].sizes !== undefined && adUnitsUsed[index].codeType !== 'instream') && 
+          <div className="ad-units-options__sizes">
+            <Textinput
+              size="m"
+              view="default"
+              placeholder="Sizes"
+              value={adUnitsUsed[index].sizes}
+              state={adUnitsUsed[index].sizesState}
+              hint={adUnitsUsed[index].sizesHint}
+              onChange={(e) => {this.props.sizesInput(e, index)}}
+            />
+          </div>
+        }
       </div>
         <div className="adUnitBidders">
           {

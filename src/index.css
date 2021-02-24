@@ -11,9 +11,40 @@ body {
   min-width: 420px;
 }
 
+.root__heading {
+  margin-bottom: 0;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.help-icon {
+  width: 20px;
+  height: 20px;
+  background-color: #e4e4e4;
+  text-align: center;
+  border-radius: 50%;
+  color: black;
+  cursor: pointer;
+  position: relative;
+}
+
+.help-popup {
+  position: absolute;
+  width: 250px;
+  padding: 20px;
+  box-shadow: 3px 3px 10px grey;
+  background-color: white;
+  z-index: 999999;
+  top: 20px;
+  left: 20px;
+  display: none;
+}
+
+.help-icon:hover .help-popup {
+  display: block;
 }
 
 .root__heading {
@@ -23,8 +54,8 @@ code {
 .main-wrapper {
   padding: 30px;
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: max-content max-content;
+  grid-template-columns: 1.5fr 2fr;
+  grid-template-rows: minmax(160px, max-content) max-content;
 }
 
 .bidderSelect {
@@ -47,11 +78,64 @@ code {
 
 .result__code {
   width: 100%;
-  height: 100%;
+  height: 75vh;
+  border: 2px solid #e6e6e6;
+  border-radius: 4px;
+}
+
+.result__code:hover {
+  border-color: #cecece;
+}
+
+.result__code:focus {
+  border-color: #b3b3b3;
+}
+
+.trusted-owners__input {
+  max-width: 250px;
+}
+
+.user-timeout__input {
+  max-width: 100px;
 }
 
 .result__button {
   grid-column: 2;
+}
+
+.errors {
+  padding: 20px;
+  background-color: rgba(240, 52, 52, 0.7);
+  box-shadow: 3px 3px 10px grey;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 8px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  z-index: 999;
+}
+
+.errors:hover {
+  background-color: rgba(240, 52, 52, 1);
+}
+
+.errors__title {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.errors__text {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.trusted-owners__title {
+  margin-right: 10px;
 }
 
 @media screen and (max-width: 1024px) {

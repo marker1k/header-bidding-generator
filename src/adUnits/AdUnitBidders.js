@@ -29,10 +29,6 @@ class AdUnitBidders extends React.Component {
     let bidderIndex = this.props.bidderIndex;
     let biddersMap = this.props.biddersMap;
     let biddersList = this.props.biddersList;
-    // Биддеры, которые добавлены в biddersMap
-    // let availableBidders = this.props.biddersMap.map((elem => {
-    //   return elem.checked;
-    // }));
     // Биддеры, которые заиспользованы в текущем adUnit
     let biddersUsedInCurrentAdUnit = adUnitsUsed[adUnitIndex].bidders.map((elem, idx) => {
       if (idx !== bidderIndex) {
@@ -44,27 +40,21 @@ class AdUnitBidders extends React.Component {
     let list = biddersMap.map((bidder) => {
       if (
         biddersList[bidder.checked].codeTypes.includes(currentCodeType) === true 
-        && biddersUsedInCurrentAdUnit.includes(bidder.checked) === false
+        && biddersUsedInCurrentAdUnit.includes(bidder.checked === 'adfox' ? `adfox_${bidder.biddersName}` : bidder.checked) === false
       ) {
         if (bidder.checked === 'adfox') {
           return {value: `adfox_${bidder.biddersName}`, content: bidder.biddersName}
         } else {
           return {value: bidder.checked, content: biddersList[bidder.checked].value}
         }
-      } 
-      // else {
-      //  return {value: 'default',content: '---'};
-      // }
+      }
     }).filter(item => item !== undefined);
-    // let list = this.props.biddersList.map((elem) => {
-    //   if (availableBidders.includes(elem.value) === true &&
-    //       biddersUsedInCurrentAdUnit.includes(elem.value) === false &&
-    //       elem.codeTypes.includes(currentCodeType)
-    //     ) {
-    //     return {value: elem.value, content: elem.name}
-    //   }
-    // }).filter(item => item !== undefined);
-    return list
+    
+    // фильтруем одинаковые элементы списка. Такое может случится, если в biddersMap ошибка и одинаковый логин для adfox hb используется два раза
+    // let ids = list.map(o => o.id);
+    // let filtered = list.filter(({id}, index) => !ids.includes(id, index + 1));
+
+    return list;
   }
 
   render() {

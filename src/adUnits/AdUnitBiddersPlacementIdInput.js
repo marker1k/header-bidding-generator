@@ -8,13 +8,16 @@ class AdUnitBiddersPlacementIdInput extends React.Component {
         let adUnitsUsed = this.props.adUnitsUsed;
         return(
             <div className="ad-units-bidder__placement-id-input">
-            <p className="ad-units-bidder__placement-id-label">placementId:</p>
+            {/* <p className="ad-units-bidder__placement-id-label">placementId:</p> */}
             <Textinput
               baseline="true"
               width="max"
               size="m"
               view="default"
-              value={adUnitsUsed[adUnitIndex].placementId}
+              placeholder="placementId"
+              state={adUnitsUsed[adUnitIndex].bidders[bidderIndex].state}
+              hint={adUnitsUsed[adUnitIndex].bidders[bidderIndex].hint}
+              value={adUnitsUsed[adUnitIndex].bidders[bidderIndex].placementId}
               onChange={(e) => {this.props.placementIdInput(e, adUnitIndex, bidderIndex)}}
             />
           </div>

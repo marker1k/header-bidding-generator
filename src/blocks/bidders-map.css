@@ -8,8 +8,25 @@
     flex-direction: column;
 }
 
+.bidders-map__heading-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.bidders-map__heading {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 10px;
+}
+
+.bidders-map__help-icon {
+  cursor: pointer;
+}
+
 .bidders-map__add-button {
     align-self: baseline;
+    margin-top: 15px;
 }
 
 .bidders-map__item {
@@ -23,7 +40,7 @@
   }
   
   .bidders-map__campaign-id {
-    width: 90px;
+    max-width: 110px;
     margin-right: 10px;
   }
 

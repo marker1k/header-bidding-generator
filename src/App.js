@@ -103,7 +103,7 @@ class App extends React.Component {
         // Если idx в map совпадает с index ноды, то меняем value
         if (idx === index) {
           // Если такой id уже есть, то подсвечиваем поле как error
-          if (usedCampaignIds.includes(currentCmpaignId)) {
+          if (usedCampaignIds.includes(currentCmpaignId) && currentCmpaignId !== "") {
             return Object.assign({}, item, {value: currentCmpaignId, state: "error", hint: "Такой id уже используется"});
           } else {
             return Object.assign({}, item, {value: currentCmpaignId, state: "", hint: ""});
@@ -248,9 +248,23 @@ class App extends React.Component {
     }
   }
 
-  disableAddBidderButton = (adUnitIndex) => {
+  disableAddBidderButton = (adUnitIndex, codeType) => {
     const biddersMapLength = this.state.biddersMap.length;
     const currentAdUnitBiddersLength = this.state.adUnits[adUnitIndex].bidders.length;
+    // if (currentAdUnitBiddersLength >= biddersMapLength)
+    // debugger;
+    // const bidderInBidMap = this.state.biddersMap.map((bidder) => {
+    //   return bidder.checked;
+    // });
+    // const biddersAvailableForThisCodeType = Object.keys(list).map((bidder) => {
+    //   if (bidderInBidMap.includes(bidder) && list[bidder].codeTypes.includes(codeType)) {
+    //     return bidder;
+    //   }
+    // }).filter((elem) => {return elem !== undefined});
+    // console.log(bidderInBidMap);
+    // console.log(biddersAvailableForThisCodeType);
+
+    //if (biddersAvailableForThisCodeType.length >= bidderInBidMap.length)
     if (currentAdUnitBiddersLength >= biddersMapLength) {
       this.setState(prevState => {
         const adUnits = prevState.adUnits.map((item, index) => {
@@ -291,7 +305,7 @@ class App extends React.Component {
       let containerIdUsed = prevState.adUnits.map((adUnit, index) => {if (index !== idx) {return adUnit.containerId}});
       const adUnits = prevState.adUnits.map((item, index) => {
         if (idx === index) {
-          if (containerIdUsed.includes(event.target.value)) {
+          if (containerIdUsed.includes(event.target.value) && event.target.value !== "") {
             return Object.assign({}, item, {containerId: event.target.value, state: "error", hint: "ID контейнера уже используется"});
           } else {
             return Object.assign({}, item, {containerId: event.target.value, state: "", hint: ""});
@@ -409,7 +423,7 @@ class App extends React.Component {
         }).flat();
 
         if (bidderIndex === index) {
-          if (anotherBidsOfThisBidder.some(elem => elem.placementId === event.target.value)) {
+          if (anotherBidsOfThisBidder.some(elem => elem.placementId === event.target.value) && event.target.value !== "") {
             return Object.assign({}, item, {placementId: event.target.value, state: "error", hint: "Такой placementId уже используется"});
           } else {
             return Object.assign({}, item, {placementId: event.target.value, state: "", hint: ""});
@@ -438,7 +452,10 @@ class App extends React.Component {
     if (adfoxCode !== "") {
       parsedAdfoxCode.querySelectorAll("script").forEach((element, index, array) => {
         if (element.innerText.includes("adfoxCode")) {
-          adfoxParamsParsed = eval(array[index].innerText);
+          eval(array[index].innerText);
+          let str = window.yaContextCb[0].toString();
+          adfoxParamsParsed = eval(str.slice(5).slice(0, -1));
+          window.yaContextCb = [];
         }  
       });
     } else {
@@ -556,8 +573,17 @@ class App extends React.Component {
     const userTimeout = this.state.userTimeout.value;
     // Валидация id кампании
     if (biddersMap.some((elem) => elem.state === 'error')) {
-      // alert("Исправьте все ошибки в biddersMap");
       this.showError("Bidders Map", "Исправьте все ошибки в biddersMap");
+      return;
+    }
+
+    if (biddersMap.some((bidder) => bidder.checked === "default")) {
+      this.showError("Bidders Map", "Проверьте, что во всех позициях выбран биддер");
+      return;
+    }
+
+    if (biddersMap.some((bidder) => bidder.value === "")) {
+      this.showError("Bidders Map", "Проверьте, что во всех позициях указан id кампании");
       return;
     }
 
@@ -695,7 +721,7 @@ class App extends React.Component {
       tail = "\n\nwindow.YaHeaderBiddingSettings = {\n  biddersMap: adfoxBiddersMap,\n  adUnits: adUnits,\n  timeout: userTimeout\n};"
     }
     resultElement.value = 
-      `<script async src="https://yastatic.net/pcode/adfox/header-bidding.js"></script>\n<script>\nvar adfoxBiddersMap = ${newBiddersMapBeautifyed};\n\nvar adUnits = ${newAdUnitsBeautifyed};\n\nvar userTimeout = ${userTimeout === "" ? "1000" : userTimeout};${tail}\n</script>\n<script src="https://yastatic.net/pcode/adfox/loader.js" crossorigin="anonymous"></script>`;
+      `<script async src="https://yandex.ru/ads/system/header-bidding.js"></script>\n<script>\nvar adfoxBiddersMap = ${newBiddersMapBeautifyed};\n\nvar adUnits = ${newAdUnitsBeautifyed};\n\nvar userTimeout = ${userTimeout === "" ? "1000" : userTimeout};${tail}\n</script>\n<script>window.yaContextCb = window.yaContextCb || []</script>\n<script src="https://yandex.ru/ads/system/context.js" async></script>`;
   }
 
   toggleAddUnitButton = () => {

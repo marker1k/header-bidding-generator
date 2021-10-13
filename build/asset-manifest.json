@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.76631e39.chunk.css",
+    "main.js": "/static/js/main.19f8051a.chunk.js",
+    "main.js.map": "/static/js/main.19f8051a.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.09459faf.js",
+    "runtime-main.js.map": "/static/js/runtime-main.09459faf.js.map",
+    "static/css/2.eabf3f51.chunk.css": "/static/css/2.eabf3f51.chunk.css",
+    "static/js/2.f72160ac.chunk.js": "/static/js/2.f72160ac.chunk.js",
+    "static/js/2.f72160ac.chunk.js.map": "/static/js/2.f72160ac.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.eabf3f51.chunk.css.map": "/static/css/2.eabf3f51.chunk.css.map",
+    "static/css/main.76631e39.chunk.css.map": "/static/css/main.76631e39.chunk.css.map",
+    "static/js/2.f72160ac.chunk.js.LICENSE.txt": "/static/js/2.f72160ac.chunk.js.LICENSE.txt",
+    "static/media/Icon_type_arrow.css": "/static/media/arrow-b.9b1d380e.svg",
+    "static/media/Icon_type_close.css": "/static/media/close.a428f336.svg",
+    "static/media/Icon_type_cross.css": "/static/media/cross-s.b24eae07.svg",
+    "static/media/Icon_type_cross-websearch.css": "/static/media/cross-websearch.50e8fbfd.svg",
+    "static/media/Icon_type_filter.css": "/static/media/filter.c6a6fb88.svg",
+    "static/media/Menu_theme_normal.css": "/static/media/tip.f4cb635a.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.09459faf.js",
+    "static/css/2.eabf3f51.chunk.css",
+    "static/js/2.f72160ac.chunk.js",
+    "static/css/main.76631e39.chunk.css",
+    "static/js/main.19f8051a.chunk.js"
+  ]
+}

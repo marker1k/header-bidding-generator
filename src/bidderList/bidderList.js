@@ -27,5 +27,11 @@ export const list = {
   "adtelligent": {value: "Adtelligent", codeTypes: ["banner", "inpage"]},
   "otm": {value: "OTM", codeTypes: ["banner", "inpage", "instream"]},
   "segmento": {value: "Segmento", requireSizes: true, codeTypes: ["banner", "inpage", "instream"]},
-  "bidvol": {value: "Bidvol", requireSizes: true, codeTypes: ["banner"]}
+  "bidvol": {value: "Bidvol", requireSizes: true, codeTypes: ["banner"]},
+  "admixer": {value: "AdMixer", requireSizes: true, codeTypes: ["banner", "combo"]},
+  "gnezdo": {value: "Gnezdo", requireSizes: true, codeTypes: ["banner", "combo"]},
+  "mit": {value: "Media Instinct", requireSizes: true, codeTypes: ["banner", "combo"]},
+  "astralab": {value: "Astralab", requireSizes: false, codeTypes: ["banner", "combo"]},
+  "mts": {value: "МТС", requireSizes: false, codeTypes: ["banner", "combo", "instream"]},
+  "sape": {value: "Sape", requireSizes: false, codeTypes: ["banner", "combo", "instream"]}
 };

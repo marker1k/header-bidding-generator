@@ -13,10 +13,13 @@ configureRootTheme({ theme })
 
 class AdUnitsUnit extends React.Component {
   componentDidUpdate(prevProps) {
-    if (this.props.adUnitsUsed[this.props.index].bidders !== prevProps.adUnitsUsed[this.props.index].bidders) {
-      this.props.clearSizesWhenNoBiddersAdded(this.props.index);
+    const {adUnitsUsed} = this.props;
+    const {index} = this.props;
+    const codeType = adUnitsUsed[index].codeType;
+    if (adUnitsUsed[index].bidders !== prevProps.adUnitsUsed[index].bidders) {
+      this.props.clearSizesWhenNoBiddersAdded(index);
       // Дизейблим кнопку добавить биддера, когда больше нет доступных биддеров для добавления
-      this.props.disableAddBidderButton(this.props.index);
+      this.props.disableAddBidderButton(index, codeType);
     }
   }
   render() {

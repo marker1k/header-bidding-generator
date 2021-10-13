@@ -109,7 +109,7 @@ class AdUnitBidders extends React.Component {
               type="checkbox" 
               id="preroll" 
               name="preroll" 
-              checked={adUnitsUsed[adUnitIndex].bidders[bidderIndex].adBreakTypes.preroll} 
+              checked={adUnitsUsed[adUnitIndex].bidders[bidderIndex].adBreakTypes !== undefined ? adUnitsUsed[adUnitIndex].bidders[bidderIndex].adBreakTypes.preroll : false} 
               onChange={(e) => {this.props.adBreakTypeHandler(e, adUnitIndex, bidderIndex)}}
             />
 
@@ -119,7 +119,7 @@ class AdUnitBidders extends React.Component {
               type="checkbox" 
               id="midroll" 
               name="midroll" 
-              checked={adUnitsUsed[adUnitIndex].bidders[bidderIndex].adBreakTypes.midroll} 
+              checked={adUnitsUsed[adUnitIndex].bidders[bidderIndex].adBreakTypes !== undefined ? adUnitsUsed[adUnitIndex].bidders[bidderIndex].adBreakTypes.midroll : false} 
               onChange={(e) => {this.props.adBreakTypeHandler(e, adUnitIndex, bidderIndex)}}
             />
 
@@ -129,7 +129,7 @@ class AdUnitBidders extends React.Component {
               type="checkbox" 
               id="postroll" 
               name="postroll" 
-              checked={adUnitsUsed[adUnitIndex].bidders[bidderIndex].adBreakTypes.postroll} 
+              checked={adUnitsUsed[adUnitIndex].bidders[bidderIndex].adBreakTypes !== undefined ? adUnitsUsed[adUnitIndex].bidders[bidderIndex].adBreakTypes.postroll : false}
               onChange={(e) => {this.props.adBreakTypeHandler(e, adUnitIndex, bidderIndex)}}
             />
           </div>
